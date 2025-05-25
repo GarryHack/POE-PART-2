@@ -55,7 +55,24 @@ namespace POE_PART_2
                     "Use privacy-focused browsers and search engines to limit data collection.",
                     "Read privacy policies before agreeing to terms and conditions on websites and apps.",
                     "Consider using a VPN when browsing on public Wi-Fi networks."
+                },
+                  ["software updates"] = new List<string>
+                {
+                    "Regularly updating software plays an important role in protecting your data.",
+                    "Outdated software often contains vulnerabilities that can be exploited by malicious actors to gain access to systems and data.",
+                    "Software updates often include patches that address known vulnerabilities.",
+                    "Updates may introduce new security features or enhancements that can strengthen your system’s defenses",
+                    "Keeping software up to date helps to mitigate the risks associated with using outdated technology."
+                },
+                 ["Session hijacking"] = new List<string>
+                {
+                    "Make sure that your website uses HTTPS to encrypt data transmitted between your site and the users. ",
+                    "Logging out of websites after you are done is important because once you log out, the session ID is invalid and cannot be used maliciously.",
+                    "Many session hijacking attacks take advantage of stolen credentials; however, with MFA even if cybercriminals get your login credentials, they won’t be able to access your account without the second authentication requirement. ",
+                    "Before clicking on a link, make sure that it is safe to do so. Some links may look legitimate but instead of taking you to the website you’re looking for, they may direct you to a malicious phishing site that’s trying to get you to enter your password or install malware.",
+                    "Public WiFi isn’t secure, and it’s easy for cybercriminals to hijack sessions through Man-in-the-Middle attacks. If possible, avoid public WiFi completely."
                 }
+                
             };
         }
         private void InitializeKeywords()
