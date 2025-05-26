@@ -318,7 +318,56 @@ namespace POE_PART_2
                 }
             }
         }
-
+           public void SayGoodbye()
+   {
+       if (!string.IsNullOrEmpty(userInterest))
+       {
+           Console.WriteLine($"Goodbye, {userName}! Remember to keep practicing good {userInterest} habits. Stay safe online!");
+       }
+       else
+       {
+           Console.WriteLine($"Goodbye, {userName}! Stay safe online!");
+       }
+   }
+ public void ConversationStarter()
+ {
+     bool exitProgram = false;
+     
+     while (!exitProgram)
+     {
+         Console.WriteLine($"\nWhat would you like to know about, {userName}? (Type 'exit' to end)");
+         Console.WriteLine("1. How are you?");
+         Console.WriteLine("2. What's your purpose?");
+         Console.WriteLine("3. What can I ask you about?");
+         Console.WriteLine("You can also ask about: passwords, phishing, scams, privacy, or any cybersecurity topic!");
+         
+         string userInput = Console.ReadLine();
+         
+         if (string.IsNullOrEmpty(userInput))
+         {
+             Console.WriteLine("Please enter something so I can help you!");
+             continue;
+         }
+         
+         Console.Clear();
+         
+         if (userInput.ToLower().Contains("exit") || userInput.ToLower().Contains("bye") || 
+             userInput.ToLower().Contains("goodbye") || userInput.ToLower().Contains("quit"))
+         {
+             exitProgram = true;
+             SayGoodbye();
+         }
+         else
+         {
+             HandleUserInput(userInput);
+             
+             Console.WriteLine("\nPress any key to continue...");
+             Console.ReadKey();
+             Console.Clear();
+             ImageDisplay();
+         }
+     }
+ }
 
     }
 }
