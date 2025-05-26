@@ -219,7 +219,7 @@ namespace POE_PART_2
                     return "";
             }
         }
-         private string RecognizeKeyword(string input)
+         private string RecognizeKeyword(string input)// recognizes keyword that wa
  {
      string lowerInput = input.ToLower();
      
@@ -234,7 +234,7 @@ namespace POE_PART_2
      return null;
  }
         
-        private string GetRandomResponse(string topic)
+        private string GetRandomResponse(string topic)//loops through dictionary and gives a random response based off of the keyword that was selected
         {
             if (responses.ContainsKey(topic) && responses[topic].Count > 0)
             {
@@ -243,7 +243,82 @@ namespace POE_PART_2
             }
             return null;
         }
+        public void HandleUserInput(string userInput) //Where user input is processed
+        {
+            string sentiment = DetectSentiment(userInput);
+            string sentimentResponse = GetSentimentResponse(sentiment);
+            string recognizedKeyword = RecognizeKeyword(userInput);
 
-        
+            // Tracks what user is interested in based on 
+            if (userInput.ToLower().Contains("interested in") || userInput.ToLower().Contains("i like"))
+            {
+                if (recognizedKeyword != null)
+                {
+                    userInterest = recognizedKeyword;
+                    Console.WriteLine(sentimentResponse + $"Great! I'll remember that you're interested in {recognizedKeyword}. It's a crucial part of staying safe online.");
+                    return;
+                }
+            }
+
+            // Handle predefined menu options
+            if (userInput.Contains("1") || userInput.Contains("how are you"))
+            {
+                Console.WriteLine(sentimentResponse + "I'm doing well, thanks for asking :) ! I'm ready to help with cybersecurity information.");
+                if (!string.IsNullOrEmpty(userInterest))
+                {
+                    Console.WriteLine($"Since you're interested in {userInterest}, would you like to see some tips about this specific topic?");
+                }
+            }
+            else if (userInput.Contains("2") || userInput.Contains("what is your purpose?"))
+            {
+                Console.WriteLine(sentimentResponse + "My purpose is to spread awareness on cybersecurity help you surf the web safely by teaching you online safety practices :) .");
+            }
+            else if (userInput.Contains("3") || userInput.Contains("what questions can i ask?"))
+            {
+                Console.WriteLine(sentimentResponse + "You can ask me about certain cybersecurity topics such as password security, phishing, scams, privacy protection, ransomware, DNS spoofing, session hijacking and software updates.");
+            }
+            else if (recognizedKeyword != null)
+            {
+                // Handle keyword recognition with random responses
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"{recognizedKeyword.ToUpper()} SECURITY TIPS:");
+                Console.ResetColor();
+
+                string randomResponse = GetRandomResponse(recognizedKeyword);
+                if (randomResponse != null)
+                {
+                    Console.WriteLine(sentimentResponse + randomResponse);
+                }
+                else
+                {
+                    Console.WriteLine(sentimentResponse + $"Here's some important information about {recognizedKeyword} security.");
+                }
+
+                // Personalized follow-up based on user interest
+                if (userInterest == recognizedKeyword)
+                {
+                    Console.WriteLine($"As someone particularly interested in {userInterest}, you might want to explore this topic further!");
+                }
+            }
+            else if (userInput.ToLower().Contains("more") || userInput.ToLower().Contains("tell me more") ||
+                     userInput.ToLower().Contains("explain") || userInput.ToLower().Contains("details"))
+            {
+                // Handle follow-up questions
+                Console.WriteLine(sentimentResponse + "I'd be happy to provide more details! What specific aspect would you like me to explain further?");
+                Console.WriteLine("You can ask about passwords, phishing, scams, or privacy protection.");
+            }
+            else
+            {
+                Console.WriteLine(sentimentResponse + $"I'm sorry, {userName}, I don't have specific information about that yet.");
+                Console.WriteLine("You can ask me about cybersecurity topics such as password security, phishing, scams, privacy protection, ransomware, DNS spoofing, session hijacking or software updates.");
+
+                if (!string.IsNullOrEmpty(userInterest))
+                {
+                    Console.WriteLine($"Or would you like to know more about {userInterest}, which you mentioned you're interested in?");
+                }
+            }
+        }
+
+
     }
 }
