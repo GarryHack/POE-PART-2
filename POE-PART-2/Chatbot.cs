@@ -219,5 +219,31 @@ namespace POE_PART_2
                     return "";
             }
         }
+         private string RecognizeKeyword(string input)
+ {
+     string lowerInput = input.ToLower();
+     
+     foreach (var keyword in keywords)
+     {
+         if (lowerInput.Contains(keyword.Key))
+         {
+             return keyword.Value;
+         }
+     }
+     
+     return null;
+ }
+        
+        private string GetRandomResponse(string topic)
+        {
+            if (responses.ContainsKey(topic) && responses[topic].Count > 0)
+            {
+                int index = random.Next(responses[topic].Count);
+                return responses[topic][index];
+            }
+            return null;
+        }
+
+        
     }
 }
